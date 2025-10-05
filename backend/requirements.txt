@@ -1,0 +1,24 @@
+fastapi==0.115.2
+uvicorn[standard]==0.30.6
+bcrypt==3.2.0
+# Auth/JWT and crypto
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+cryptography==42.0.8
+
+# Validation and settings
+pydantic==2.8.2
+pydantic-settings==2.4.0
+email-validator==2.2.0
+
+# Supabase client
+supabase==1.2.0
+
+# HTTP & uploads
+requests==2.32.3
+python-multipart==0.0.9
+
+# twilio optional (using requests + basic auth, no direct SDK pin required)
+
+# dotenv loader
+python-dotenv==1.0.1
