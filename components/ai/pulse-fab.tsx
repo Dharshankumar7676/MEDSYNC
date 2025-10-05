@@ -20,7 +20,7 @@ export default function PulseFab() {
             </button>
           </div>
           <div className="p-3">
-            <PulseChat />
+            <PulseChat compact />
           </div>
         </div>
       )}

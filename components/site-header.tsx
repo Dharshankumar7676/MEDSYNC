@@ -9,25 +9,26 @@ import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 
 export default function SiteHeader() {
   return (
-    <header className="header shadow-neon flex items-center justify-between px-8 py-4 sticky top-0 z-50">
-      <div className="header-logo neon-underline font-heading text-2xl font-bold tracking-wide">
-        <Link href="/">
-          <span>MedSync</span>
+    <header className="sticky top-0 z-50 border-b border-[var(--color-divider)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
+      <div className="mx-auto max-w-screen-xl flex items-center h-16 px-4">
+        <Link href="/" className="neon-underline font-heading text-xl font-semibold tracking-wide text-white">
+          MedSync
         </Link>
-      </div>
-      <div className="header-search flex-1 mx-8">
-        <Input placeholder="Search..." className="rounded-xl" />
-      </div>
-      <div className="header-theme-toggle mr-6">
-        <ThemeProvider attribute="class">
-          {/* Theme toggle button can be added here */}
-        </ThemeProvider>
-      </div>
-      <div className="header-avatar">
-        <Avatar>
-          <AvatarImage src="/placeholder-user.jpg" alt="Profile" />
-          <AvatarFallback>U</AvatarFallback>
-        </Avatar>
+        <div className="ml-auto flex items-center gap-3">
+          <div className="hidden md:block w-56">
+            <Input placeholder="Search..." className="rounded-xl bg-[#0F0F0F]" />
+          </div>
+          <Button asChild variant="secondary" className="hidden sm:inline-flex">
+            <Link href="/login">Sign In</Link>
+          </Button>
+          <Button asChild variant="primary">
+            <Link href="/register">Get Started</Link>
+          </Button>
+          <Avatar className="size-8">
+            <AvatarImage src="/placeholder-user.jpg" alt="Profile" />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </header>
   );

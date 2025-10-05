@@ -3,6 +3,7 @@
 import type React from "react"
 import { Sidebar } from "@/components/layout/sidebar"
 import { TopNav } from "@/components/layout/top-nav"
+import PulseFab from "@/components/ai/pulse-fab"
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,6 +17,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
         </main>
       </div>
+      <PulseFab />
     </div>
   )
 }

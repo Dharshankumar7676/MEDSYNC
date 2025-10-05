@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Send } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export default function PulseChat() {
+export default function PulseChat({ compact = false }: { compact?: boolean }) {
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([])
   const [loading, setLoading] = useState(false)
@@ -46,7 +46,10 @@ export default function PulseChat() {
   }
 
   return (
-    <div className="rounded-xl border shadow-lg flex flex-col h-[calc(100vh-12rem)] bg-gradient-to-br from-background to-muted/20 backdrop-blur-xl">
+    <div className={cn(
+      "rounded-xl border shadow-lg flex flex-col bg-gradient-to-br from-background to-muted/20 backdrop-blur-xl",
+      compact ? "h-[480px]" : "h-[calc(100vh-12rem)]"
+    )}>
       <div className="p-4 border-b bg-muted/50">
         <h2 className="font-semibold text-lg bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">Pulse Assistant</h2>
         <p className="text-sm text-muted-foreground">Your healthcare AI companion</p>

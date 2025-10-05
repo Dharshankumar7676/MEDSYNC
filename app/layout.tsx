@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
+import PulseFab from "@/components/ai/pulse-fab"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({
             <Analytics />
           </Suspense>
         </ThemeProvider>
+        <PulseFab />
       </body>
     </html>
   )
