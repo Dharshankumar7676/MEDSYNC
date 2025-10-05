@@ -15,14 +15,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark" style={{
-      "--color-primary": "#00E0C7",
-      "--color-secondary": "#B79FFF",
-      "--color-bg": "#0E1117",
-      "--color-surface": "#1B1F29",
-      "--color-text-primary": "#F5F5F7",
-      "--color-text-secondary": "#A1A1AA",
-    } as React.CSSProperties}>
+    <html lang="en" className="dark">
       <body className="font-['Inter']">
         <ThemeProvider>
           <Suspense fallback={

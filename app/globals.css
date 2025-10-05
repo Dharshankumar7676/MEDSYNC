@@ -2,37 +2,45 @@
 
 
 :root {
-  --color-bg: #000000;
-  --color-surface: #1A1A1A;
+  /* MedCore Mono — Core tokens */
+  --color-bg: #000000; /* Secondary (base background) */
+  --color-surface: #1A1A1A; /* Neutral_Gray surfaces */
   --color-card: #1A1A1A;
   --color-divider: #2E2E2E;
-  --color-primary: #FFFFFF;
-  --color-secondary: #000000;
-  --color-accent1: #C800FF;
-  --color-accent2: #FF00A8;
-  --color-accent3: #00FF88;
-  --color-gradient: linear-gradient(90deg, #FF00A8, #00FF88);
+  --color-primary: #FFFFFF; /* Pure white */
+  --color-secondary: #000000; /* True black */
+  --color-accent-violet: #C800FF; /* Neon Violet */
+  --color-accent-pink: #FF00A8; /* Neon Pink */
+  --color-accent-green: #00FF88; /* Neon Green */
+  --color-neutral-gray: #1A1A1A;
   --color-text-primary: #EAEAEA;
   --color-text-secondary: #B5B5B5;
+  --gradient-accent: linear-gradient(90deg, #FF00A8, #00FF88);
+
   --radius-xl: 1rem;
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
+  --border-radius-xl: 1rem; /* alias */
+
+  --shadow-neon: 0 0 30px -10px rgba(255,255,255,0.1);
+  --shadow-minimal: 0 2px 8px rgba(0,255,136,0.08);
   --shadow-depth: 0 0 30px -10px rgba(255,255,255,0.1);
+
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
 }
 
 .dark {
+  /* Tailwind CSS v4 color variables (optional usage by shadcn components) */
   --background: 0 0% 5%;
-  --foreground: 0 0% 100%;
   --card: 0 0% 10%;
   --card-foreground: 0 0% 100%;
   --popover: 0 0% 10%;
   --popover-foreground: 0 0% 100%;
-  --primary: 320 100% 50%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 156 100% 50%;
-  --secondary-foreground: 0 0% 0%;
+  --primary: 0 0% 100%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 0 0% 0%;
+  --secondary-foreground: 0 0% 100%;
   --muted: 0 0% 18%;
   --muted-foreground: 0 0% 71%;
   --accent: 285 100% 50%;
@@ -41,7 +49,7 @@
   --destructive-foreground: 0 0% 100%;
   --border: 0 0% 18%;
   --input: 0 0% 6%;
-  --ring: 320 100% 50%;
+  --ring: 0 0% 100%;
   --radius: 0.75rem;
 }
 
@@ -49,6 +57,7 @@
   border-color: hsl(var(--border));
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 
@@ -56,9 +65,10 @@ body {
   background: var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-body);
-  line-height: 1.5;
+  line-height: 1.6;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 
@@ -70,8 +80,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.25rem;
-  letter-spacing: 0.04em;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
   margin-bottom: 0.5rem;
 }
 h2 {
@@ -85,6 +95,24 @@ label {
   letter-spacing: 0.08em;
   color: var(--color-text-secondary);
 }
+
+/* Motion keyframes */
+@keyframes slide-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 0, 168, 0); }
+  50% { box-shadow: 0 0 12px rgba(255, 0, 168, 0.35); }
+}
+@keyframes neon-underline {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Utility motion classes */
+.slide-fade { animation: slide-fade 400ms ease-out; }
+.glow-pulse { animation: glow-pulse 1600ms ease-in-out infinite; }
 
 /* Component styles */
 .neon-border {
@@ -115,10 +143,28 @@ label {
 }
 
 .neon-text {
-  background: linear-gradient(90deg, #FF00A8, #00FF88);
+  background: var(--gradient-accent);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Neon underline helper */
+.neon-underline { position: relative; }
+.neon-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px; height: 2px;
+  background: var(--gradient-accent);
+  background-size: 200% 100%;
+  opacity: 0.0;
+  transform: scaleX(0.4);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.neon-underline:hover::after {
+  opacity: 0.9;
+  transform: scaleX(1);
+  animation: neon-underline 1.6s linear infinite;
 }
 
 .neon-glow {
@@ -131,15 +177,15 @@ label {
 
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 30px -10px rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-neon);
 }
 
 .gradient-border {
   position: relative;
   background: linear-gradient(#000, #000) padding-box,
-              linear-gradient(90deg, #FF00A8, #00FF88) border-box;
+              var(--gradient-accent) border-box;
   border: 1px solid transparent;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
 }
 
 
@@ -193,6 +239,7 @@ label {
 
 
 .sidebar-item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -210,8 +257,13 @@ label {
 .sidebar-item.active {
   color: var(--color-primary);
   background: rgba(255,255,255,0.04);
-  border-left: 4px solid;
-  border-image: var(--color-gradient) 1;
+}
+.sidebar-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px; width: 4px;
+  background: var(--gradient-accent);
+  border-radius: 999px;
 }
 
 

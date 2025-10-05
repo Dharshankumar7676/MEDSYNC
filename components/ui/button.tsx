@@ -6,24 +6,24 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-xl transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+  "inline-flex items-center justify-center rounded-xl transition-all duration-200 uppercase text-sm font-semibold focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
         default: "bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:bg-[var(--color-surface)]/90",
-        primary: "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-black hover:shadow-lg hover:shadow-[var(--color-primary)]/20 hover:scale-105",
-        secondary: "bg-[var(--color-surface)] border border-[var(--color-primary)]/40 text-[var(--color-text-primary)] hover:border-[var(--color-primary)] hover:shadow-lg hover:shadow-[var(--color-primary)]/10",
-        ghost: "bg-transparent hover:bg-[var(--color-surface)] text-[var(--color-text-primary)]",
+        primary: "bg-gradient-to-r from-[#FF00A8] to-[#00FF88] text-black hover:opacity-90",
+        secondary: "border border-[#FF00A8] text-[#FF00A8] hover:bg-[#FF00A8]/10",
+        ghost: "bg-transparent text-white hover:text-[#00FF88]",
       },
       size: {
         icon: "h-9 w-9",
-        sm: "px-3 py-1.5 text-sm",
-        md: "px-4 py-2 text-base",
-        lg: "px-6 py-3 text-lg",
+        sm: "px-3 py-1.5",
+        md: "px-4 py-2",
+        lg: "px-6 py-3",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "md",
     },
   }
