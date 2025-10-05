@@ -1,27 +1,33 @@
 "use client"
 
-import { createClient } from "@supabase/supabase-js"
+import { createClient, type SupabaseClient } from "@supabase/supabase-js"
 
-// Create a singleton Supabase client for the browser. This expects
-// NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to be set.
-// We scope auth to localStorage under a project-specific key to avoid clashes.
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+// Lazy, browser-only Supabase client to avoid SSR build errors when env vars are missing.
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string | undefined
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string | undefined
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  // eslint-disable-next-line no-console
-  console.warn(
-    "Supabase env vars are missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
-  )
+let _supabase: SupabaseClient | null = null
+
+export function getSupabaseClient(): SupabaseClient | null {
+  if (typeof window === "undefined") return null
+  if (!_supabase) {
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.warn("Supabase env vars are missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.")
+      return null
+    }
+    _supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        storageKey: "medsync_supabase_auth",
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    })
+  }
+  return _supabase
 }
 
-export const supabase = createClient(supabaseUrl || "", supabaseAnonKey || "", {
-  auth: {
-    storageKey: "medsync_supabase_auth",
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,
-  },
-})
-
+// Backwards-compat default export for modules that expect a value. This will be null on the server.
+const supabase = typeof window === "undefined" ? (null as any) : getSupabaseClient()!
+export default supabase
 

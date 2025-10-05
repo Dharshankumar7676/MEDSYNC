@@ -1,16 +1,19 @@
 "use client"
 
+export const dynamic = "force-dynamic"
+
 import useSWR from "swr"
 import ResourceMap from "@/components/maps/resource-map"
-import { API_URL, swrFetcher } from "@/lib/api"
+import { API_BASE } from "@/lib/api"
 import { useState } from "react"
 
 export default function ResourcesPage() {
   const [type, setType] = useState<string>("")
   const [q, setQ] = useState("")
+const fetcher = (url: string) => fetch(url, { cache: "no-store" }).then((r) => r.json())
   const { data, isLoading, mutate } = useSWR(
-    `${API_URL}/resources?type=${encodeURIComponent(type)}&q=${encodeURIComponent(q)}`,
-    swrFetcher,
+    `${API_BASE}/resources?type=${encodeURIComponent(type)}&q=${encodeURIComponent(q)}`,
+    fetcher,
   )
 
   const resources = data || []

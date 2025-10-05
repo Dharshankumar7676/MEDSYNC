@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = "force-dynamic"
+
 import { ResourceTable } from "@/components/widgets/resource-table"
 import { StatCard } from "@/components/widgets/stat-card"
 import { RoleGuard } from "@/components/auth/role-guard"

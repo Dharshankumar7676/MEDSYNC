@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { supabase } from "@/lib/supabaseClient"
+import supabase, { getSupabaseClient } from "@/lib/supabaseClient"
 
 export function RoleGuard({
   allow,
@@ -36,15 +36,23 @@ export function RoleGuard({
           return
         }
 
-        // Double-check with Supabase
-        const { data } = await supabase.auth.getSession()
-        const role = (data?.session?.user?.user_metadata as any)?.role || storedRole || "patient"
-        
-        if (allow.includes(role)) {
-          setOk(true)
-          localStorage.setItem("ms_user_role", role)
+        // Double-check with Supabase (if available in browser)
+        const sb = getSupabaseClient()
+        if (sb) {
+          const { data } = await sb.auth.getSession()
+          const role = (data?.session?.user?.user_metadata as any)?.role || storedRole || "patient"
+          if (allow.includes(role)) {
+            setOk(true)
+            localStorage.setItem("ms_user_role", role)
+          } else {
+            router.replace("/login")
+          }
         } else {
-          router.replace("/login")
+          // Fallback to stored role only
+          setOk(Boolean(storedRole && allow.includes(storedRole as any)))
+          if (!(storedRole && allow.includes(storedRole as any))) {
+            router.replace("/login")
+          }
         }
       } catch (error) {
         console.error("RoleGuard error:", error)

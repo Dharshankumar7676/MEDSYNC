@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description: "Secure medical records, AI assistance, and role-based workflows for healthcare stakeholders",
 }
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export default function RootLayout({
   children,
 }: {

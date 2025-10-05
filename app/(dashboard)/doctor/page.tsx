@@ -1,8 +1,10 @@
 "use client"
 
+export const dynamic = "force-dynamic"
+
 import { StatCard } from "@/components/widgets/stat-card"
 import { BarMetric } from "@/components/widgets/charts"
-import { PulseChat } from "@/components/ai/pulse-chat"
+import PulseChat from "@/components/ai/pulse-chat"
 import { RoleGuard } from "@/components/auth/role-guard"
 
 export default function DoctorDashboard() {

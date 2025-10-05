@@ -1,4 +1,6 @@
 "use client"
+
+export const dynamic = "force-dynamic"
 import { StatCard } from "@/components/widgets/stat-card"
 import { LeafletMap } from "@/components/maps/leaflet-map"
 import { LineMetric } from "@/components/widgets/charts"

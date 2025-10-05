@@ -1,3 +1,7 @@
+"use client"
+
+export const dynamic = "force-dynamic"
+
 import AISearch from "@/components/ai/ai-search"
 
 export default function AISearchPage() {

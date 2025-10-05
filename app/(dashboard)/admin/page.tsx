@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = "force-dynamic"
+
 import { PieMetric } from "@/components/widgets/charts"
 import { StatCard } from "@/components/widgets/stat-card"
 import { RoleGuard } from "@/components/auth/role-guard"
